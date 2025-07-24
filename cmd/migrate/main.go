@@ -23,23 +23,27 @@ func main() {
 	}
 
 	defer db.Close()
+	
 
 	instance, err := sqlite3.WithInstance(db, &sqlite3.Config{})
 	if err != nil {
 		log.Fatal(err)
 	}
 
+	
 	fSrc, err := (&file.File{}).Open("cmd/migrate/migrations")
 
 	if err != nil {
 		log.Fatal(err)
 	}
+	
 
 	m, err := migrate.NewWithInstance("file", fSrc, "sqlite3", instance)
 
 	if err != nil {
 		log.Fatal(err)
 	}
+	
 
 	switch direction {
 	case "up":
